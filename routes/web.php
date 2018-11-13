@@ -11,10 +11,8 @@
 |
 */
 
-Route::get('wines-list', function() {
-    return \App\Wine::all();
-});
-
 Route::get('/', function () {
-    return view('index');
+    return view('index', [
+        'wines' => \App\Wine::all()
+    ]);
 });
