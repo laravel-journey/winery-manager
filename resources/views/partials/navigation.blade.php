@@ -7,7 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Menu Item</a>
+                    <a class="nav-link" href="{{ url('/') }}">Wines List</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/add-wine') }}">Add Wine</a>
                 </li>
             </ul>
         </div>
