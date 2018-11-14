@@ -18,6 +18,7 @@ class CreateProducersTable extends Migration
 
             $table->string('name');
             $table->string('website');
+            $table->string('email');
 
             $table->timestamps();
         });

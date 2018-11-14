@@ -11,6 +11,25 @@
 |
 */
 
+Route::post('add-producer', function(\Illuminate\Http\Request $request) {
+    $producer = new \App\Producer();
+
+    $producer->name = $request->get('name');
+    $producer->website = $request->get('website');
+    $producer->email = $request->get('email');
+
+    try {
+        $producer->save();
+        return redirect('/producers')->with('success_message', 'Producer added successfully.');
+    } catch (\Throwable $e) {
+        return redirect('add-producer')->with('error_message', 'Something went wrong. Try again!');
+    }
+});
+
+Route::get('add-producer', function() {
+    return view('producers-add');
+});
+
 Route::post('add-wine', function(\Illuminate\Http\Request $request) {
     $wine = new \App\Wine();
 
@@ -18,6 +37,10 @@ Route::post('add-wine', function(\Illuminate\Http\Request $request) {
     $wine->year = $request->get('year');
     $wine->quantity = $request->get('quantity');
     $wine->price = $request->get('price');
+
+    $producer = \App\Producer::find($request->get('producer_id'));
+
+    $wine->producer()->associate($producer);
 
     try {
         $wine->save();
@@ -28,7 +51,15 @@ Route::post('add-wine', function(\Illuminate\Http\Request $request) {
 });
 
 Route::get('add-wine', function() {
-    return view('wine-add');
+    return view('wine-add', [
+        'producers' => \App\Producer::all()
+    ]);
+});
+
+Route::get('producers', function() {
+    return view('producers-list', [
+        'producers' => \App\Producer::all()
+    ]);
 });
 
 Route::get('/', function () {

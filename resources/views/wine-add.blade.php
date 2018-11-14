@@ -24,6 +24,15 @@
             <input type="text" class="form-control" id="winePrice" placeholder="Price" name="price">
         </div>
 
+        <div class="form-group">
+            <label for="wineProducer">Producer:</label>
+            <select name="producer_id" id="wineProducer" class="form-control">
+                @foreach($producers as $producer)
+                    <option value="{{ $producer->id }}">{{ $producer->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection
