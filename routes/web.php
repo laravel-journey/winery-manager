@@ -19,9 +19,12 @@ Route::post('add-wine', function(\Illuminate\Http\Request $request) {
     $wine->quantity = $request->get('quantity');
     $wine->price = $request->get('price');
 
-    $wine->save();
-
-    return redirect('/');
+    try {
+        $wine->save();
+        return redirect('/')->with('success_message', 'Wine added successfully.');
+    } catch (\Throwable $e) {
+        return redirect('add-wine')->with('error_message', 'Something went wrong. Try again!');
+    }
 });
 
 Route::get('add-wine', function() {
