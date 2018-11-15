@@ -33,6 +33,15 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label for="wineAwards">Awards</label>
+            <select class="form-control" id="wineAwards" name="awards[]" multiple>
+                @foreach($awards as $award)
+                    <option value="{{ $award->id }}">{{ $award->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 @endsection

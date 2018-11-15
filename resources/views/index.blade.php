@@ -27,7 +27,7 @@
                     <td>-</td>
                 </tr>
             @empty
-                <td colspan="5">Sorry, no wines found.</td>
+                <td colspan="6">Sorry, no wines found.</td>
             @endforelse
         </tbody>
     </table>

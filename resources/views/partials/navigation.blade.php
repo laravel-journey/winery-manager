@@ -18,6 +18,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/add-producer') }}">Add Producer</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/awards') }}">Awards</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/add-award') }}">Add Award</a>
+                </li>
             </ul>
         </div>
     </div>

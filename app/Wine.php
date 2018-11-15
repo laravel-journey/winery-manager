@@ -10,4 +10,9 @@ class Wine extends Model
     {
         return $this->belongsTo(Producer::class);
     }
+
+    public function awards()
+    {
+        return $this->belongsToMany(Award::class);
+    }
 }

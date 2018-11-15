@@ -11,6 +11,24 @@
 |
 */
 
+Route::post('add-award', function(\Illuminate\Http\Request $request) {
+    $award = new \App\Award();
+
+    $award->name = $request->get('name');
+    $award->website = $request->get('website');
+
+    try {
+        $award->save();
+        return redirect('/awards')->with('success_message', 'Award added successfully.');
+    } catch (\Throwable $e) {
+        return redirect('add-awards')->with('error_message', 'Something went wrong. Try again!');
+    }
+});
+
+Route::get('add-award', function() {
+    return view('awards-add');
+});
+
 Route::post('add-producer', function(\Illuminate\Http\Request $request) {
     $producer = new \App\Producer();
 
@@ -39,11 +57,12 @@ Route::post('add-wine', function(\Illuminate\Http\Request $request) {
     $wine->price = $request->get('price');
 
     $producer = \App\Producer::find($request->get('producer_id'));
-
     $wine->producer()->associate($producer);
 
     try {
         $wine->save();
+        $wine->awards()->sync($request->get('awards'));
+
         return redirect('/')->with('success_message', 'Wine added successfully.');
     } catch (\Throwable $e) {
         return redirect('add-wine')->with('error_message', 'Something went wrong. Try again!');
@@ -52,7 +71,14 @@ Route::post('add-wine', function(\Illuminate\Http\Request $request) {
 
 Route::get('add-wine', function() {
     return view('wine-add', [
-        'producers' => \App\Producer::all()
+        'producers' => \App\Producer::all(),
+        'awards' => \App\Award::all()
+    ]);
+});
+
+Route::get('awards', function() {
+    return view('awards-list', [
+        'awards' => \App\Award::all()
     ]);
 });
 
